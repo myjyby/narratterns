@@ -35,12 +35,12 @@ function display (el, type) {
 			var cats = d3.selectAll('.category.active')[0].length;
 			if (cats == __categories.length) {
 				d3.selectAll('li.category').classed('active', false);
-				d3.selectAll('.row.entry').style('display', 'none');
+				d3.selectAll('.entry').style('display', 'none');
 				d3.select(this).classed('active', true);
-				d3.selectAll('.row.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
+				d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
 			} else {
 				d3.select(this).classed('active', true);
-				d3.selectAll('.row.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
+				d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
 			}
 			
 		})
@@ -56,21 +56,27 @@ function display (el, type) {
 		});
 
 	var __container = d3.select('#content'),
-		__entries = __container.selectAll('.row.entry')
+		__entries = __container.selectAll('.entry')
 			.data(__pagecontent);
 
-	__entries.enter()
+	/*__entries.enter()
 		.append('div')
 		.attr('class', function (d) {
 			var category = d.category.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
 			return 'row entry ' + category;
+		});*/
+
+	/*var __entry__atoms = __entries.append('div')*/
+	__entries.enter()
+		.append('div')
+		.attr('class', function (d) {
+			var category = d.category.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
+			return 'entry col-xs-12 col-sm-6 col-md-4 ' + category;
 		});
 
-	var __entry__atoms = __entries.append('div')
-		.attr('class', 'col-xs-12 col-sm-12 col-md-12');
-
-	__entry__atoms.append('div')
-		.attr('class', 'row body')
+	//__entry__atoms
+	__entries.append('div')
+		.attr('class', 'body')
 		.style('border-color', function (d) {
 			return __color(d.category);
 		})
@@ -78,7 +84,7 @@ function display (el, type) {
 			var _body = d3.select(this);
 			
 			_body.append('div')
-				.attr('class', 'col-xs-12 col-sm-12 col-md-10')
+				.attr('class', 'col-xs-12 col-sm-12 col-md-12')
 				.html(function (d) { 
 					return	'<p class="lead"><span>' + d.name + '</span></p>';	
 				})
@@ -91,8 +97,35 @@ function display (el, type) {
 								.html(c);
 						});
 					}
+
+					var node = d3.select(this);
+					if (type == 'atom') {
+						if (d.img) {
+							node.append('p')
+								.attr('class', 'description')
+								.append('img')
+								.attr('src', 'img/' + d.img)
+						}
+
+						node.append('p')
+							.attr('class', 'description')
+							.html('<strong>How:</strong> ' + d.description);
+
+						node.append('p')
+							.attr('class', 'description')
+							.html('<strong>Why:</strong> ' + d.purpose);
+					}
+
+					if (d.examples) {
+						d.examples.forEach(function (c) { 
+							return node.append('p')
+								.attr('class', 'description')
+								.append('a')
+							.html(c);
+						});
+					}
 				})
-			.on('mouseup', function (d) {
+			/*.on('mouseup', function (d) {
 				var node = d3.select(this),
 					parent = d3.select(this.parentNode.parentNode.parentNode);
 
@@ -167,7 +200,7 @@ function display (el, type) {
 				} else {
 					return parent.classed('expanded', false);
 				}
-			})
+			})*/
 
 			_body.classed('text-only', true);				
 
@@ -177,5 +210,5 @@ function display (el, type) {
 function clear (el) {
 	d3.selectAll('.navbar-nav li').classed('active', false);
 	d3.select(el.parentNode).classed('active', true);
-	return d3.selectAll('.row.entry').remove();
+	return d3.selectAll('.entry').remove();
 }
