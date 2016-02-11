@@ -5,10 +5,10 @@ function uniquevalues(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-function display (el, type) {
+function display (el, type, data) {
 	clear(el);
 
-	if (type == 'atom') {
+	/*if (type == 'atom') {
 		var __pagecontent = __atoms.filter(function (d) {
 			return d.type == type;
 		});
@@ -16,13 +16,27 @@ function display (el, type) {
 		var __pagecontent = __resources;
 	} else if (type == 'storytypes') {
 		var __pagecontent = __storytypes;
-	}
+	}*/
+
+	
+	__pagecontent = data;
 
 	var __categories = __pagecontent.map(function (d) {
-		return d.category;
+		//return d.Tags.replace(/\s/, '');
+		var tags = d.Tags.split(',');
+		tags.map(function (d) {
+			return d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").replace(/ /g, '').toLowerCase();
+		});
+		//tags = tags.toString().replace(/\,/, ' ');
+		return tags.toString();
+		//return d.category;
 	});
 
+	__categories = __categories.toString().split(',');
+	//__categories.forEach(function (d) { return d.replace(/\s/, ''); });
 	__categories = __categories.filter(uniquevalues);
+
+	
 
 	var __filter__menu = d3.select('.navbar-right .dropdown .dropdown-menu').html(''),
 		__filters = __filter__menu.selectAll('li')
@@ -49,7 +63,10 @@ function display (el, type) {
 		.style('background-color', function (d) { return __color(d); })
 		.html(function (d) { 
 			var count = __pagecontent.filter(function (c) {
-				return c.category == d;
+				var tags = c.Tags.split(',');
+				return tags.indexOf(d) !== -1;
+				//return c.Tags == d;
+				//return c.category == d;
 			});
 			
 			return '<small>' + d + ' [' + count.length + ']' + '</small>'; 
@@ -70,15 +87,29 @@ function display (el, type) {
 	__entries.enter()
 		.append('div')
 		.attr('class', function (d) {
-			var category = d.category.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
-			return 'entry col-xs-12 col-sm-6 col-md-4 ' + category;
+			if (d.Tags) {
+				var tags = d.Tags.split(',');
+				tags.map(function (d) {
+					return d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
+				});
+				var tags = d.Tags.replace(/\,/, '');
+				//tags = tags.toString().replace(/ /g, ' ');
+				//var category = d.category.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
+				return 'entry col-xs-12 col-sm-6 col-md-4 ' + tags;
+			} else {
+				return 'entry col-xs-12 col-sm-6 col-md-4';
+			}
 		});
 
 	//__entry__atoms
 	__entries.append('div')
 		.attr('class', 'body')
 		.style('border-color', function (d) {
-			return __color(d.category);
+			var tags = d.Tags.split(',');
+			tags.map(function (d) {
+				return d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
+			});
+			return __color(tags[0]);
 		})
 		.each(function (d) {
 			var _body = d3.select(this);
@@ -86,7 +117,7 @@ function display (el, type) {
 			_body.append('div')
 				.attr('class', 'col-xs-12 col-sm-12 col-md-12')
 				.html(function (d) { 
-					return	'<p class="lead"><span>' + d.name + '</span></p>';	
+					return	'<p class="lead"><span>' + d.Name + '</span></p>';	
 				})
 				.each(function () {
 					if (type == 'storytypes') {
@@ -100,24 +131,26 @@ function display (el, type) {
 
 					var node = d3.select(this);
 					if (type == 'atom') {
-						if (d.img) {
+						/*if (d.img) {
 							node.append('p')
 								.attr('class', 'description')
 								.append('img')
 								.attr('src', 'img/' + d.img)
-						}
+						}*/
 
 						node.append('p')
 							.attr('class', 'description')
-							.html('<strong>How:</strong> ' + d.description);
+							.html('<strong>How:</strong> ' + d.Description);
 
 						node.append('p')
 							.attr('class', 'description')
-							.html('<strong>Why:</strong> ' + d.purpose);
+							.html('<strong>Why:</strong> ' + d.Purpose);
 					}
 
-					if (d.examples) {
-						d.examples.forEach(function (c) { 
+					if (d['Example URL']) {
+						var urls = d['Example URL'].split(',');
+
+						urls.forEach(function (c) { 
 							return node.append('p')
 								.attr('class', 'description')
 								.append('a')
