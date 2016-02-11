@@ -74,15 +74,18 @@
 </div>
 
 <script type="text/javascript">
-	var page = d3.select('.navbar-nav li.active a').node();
-	display(page, 'atom')
-
 
 	function loadDataFromGDocs(){
 		console.log("loadDataFromGDocs");
 		gsheets.getWorksheet('1w2QqxzqJnoL0ke9J_1j7lENPZk_2qTwcmwYvtQ0V2iY', 'PatternCollection', function(err, res) {
-	    console.log(res);
+			console.log(res);
+
+			var page = d3.select('.navbar-nav li.active a').node();
+			display(page, 'atom', res.data);
+
 	  });
+
+
 	}
 
 	loadDataFromGDocs();
