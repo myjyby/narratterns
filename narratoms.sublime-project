@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "www"
+		},
+		{
+			"path": "cards"
 		}
 	]
 }

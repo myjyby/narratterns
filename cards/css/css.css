@@ -191,3 +191,13 @@ li.category a {
 	box-shadow: 0em 0em 0px #CCC;
 }
 
+.example-image{
+	width: 95%;
+	height: 15em;
+	overflow: hidden;
+	background: #FFF;
+	border: 1px solid #DDD;
+}
+
+
+
