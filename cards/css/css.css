@@ -1,6 +1,7 @@
 body {
-	background-color: #EAEAEA;
-	font-family: "Roboto Condensed", sans-serif;
+	background: #EAEAEA url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/contemporary_china.png);
+
+	font-family: "Avenir Next", sans-serif;
 }
 
 #header {
@@ -34,29 +35,20 @@ body {
 	-moz-transition: all 0.25s;
 	-ms-transition: all 0.25s;
 	-o-transition: all 0.25s;
-	height: 500px;
+
+	margin-bottom: 2em;
 }
 
 #content .entry div {
 	/*width: 95%;*/
+
 }
 
-/*.entry:hover, .entry.expanded {
-	margin-top: 1em;
-	margin-bottom: 1.5em;
-}
-
-.entry:hover .entry.body, .entry.expanded .row.body{
-	box-shadow: 1em 1em 0px #CCC;
-	background-position: center 50px !important;
-}*/
 
 .row.entry img {
 	max-width: 500px;
 	height: 100%;
 }
-
-
 
 .tagname {
 	background-color: steelblue;
@@ -89,13 +81,14 @@ body {
 }
 
 .entry .body {
-	box-shadow: 0.5em 0.5em 0px #CCC;
+	box-shadow: 0 0 1px rgba(0,0,0,.3), 0 0 10px rgba(0,0,0,.15);
+	border-radius: 4px;
 	background-color: #FFF;
-	margin-bottom: 1em;
-	border-top: 2px solid steelblue;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	height: 95%;
+
+	border-top: 3px solid steelblue;
+	padding: 1em 0;
+	min-height: 40em;
+	height: 100%;
 	overflow: auto;
 	transition: all 0.25s;
 	-webkit-transition: background-position 1s ease-in-out !important;
@@ -116,26 +109,54 @@ body {
 
 .entry .body p.lead {
 	/*background-color: rgba(255,255,255,1);*/
-	font-size: 30px;
+	font-size: 1.2em;
+	font-weight: 600;
 	/*line-height: 70px;*/
-	padding: 0;
-	margin-bottom: 15px;
+	padding: 0 1rem;
+	margin-bottom: 1.2rem;
+	min-height: 3rem;
 	cursor: pointer;
+	display: block;
 }
+
 
 /*.row.body p.lead span {
 	border-bottom: 1px solid #333;
 }*/
 
-.entry .body p.description {
+.examples {
+	position: absolute;
+	bottom: 0;
+}
+
+.examples a{
+	font-size: .85em;
+}
+
+p.description, p.examples {
 	/*background-color: rgba(255,255,255,1);*/
-	font-size: 14px;
-	line-height: 1.25em;
-	padding: 0;
+	/*font-size: 14px;*/
+	line-height: 1.3;
+	padding: 0 1rem;
 	margin: 0;
 	cursor: pointer;
-	margin-top: .5em;
-	margin-bottom: .75em;
+	margin: 1.5em 0;
+
+}
+
+.entry .body p.description{
+	min-height: 5em;
+}
+
+.body h4 {
+	color: #999;
+	/*display: inline-block;*/
+	font-size: 1rem;
+	letter-spacing: .1em;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0 0 .5em;
+	padding: 0;
 }
 
 img {
@@ -192,11 +213,13 @@ li.category a {
 }
 
 .example-image{
-	width: 95%;
-	height: 15em;
+	width: 100%;
+	height: 15rem;
 	overflow: hidden;
-	background: #FFF;
-	border: 1px solid #DDD;
+	background: #F5F5F5;
+	/*border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;*/
+	margin: 0 0 2rem 0;
 }
 
 

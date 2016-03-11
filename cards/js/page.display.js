@@ -119,7 +119,7 @@ function display (el, type, data) {
 			var _body = d3.select(this);
 
 			_body.append('div')
-				.attr('class', 'col-xs-12 col-sm-12 col-md-12')
+				.attr('class', 'inner')
 				.html(function (d) {
 					return	'<p class="lead"><span>' + d.Name + '</span></p>';
 				})
@@ -149,23 +149,27 @@ function display (el, type, data) {
 
 						node.append('p')
 							.attr('class', 'description')
-							.html('<strong>How:</strong> ' + d.Description);
+							.html('<h4>How</h4> ' + d.Description);
 
 						node.append('p')
 							.attr('class', 'description')
-							.html('<strong>Why:</strong> ' + d.Purpose);
+							.html('<h4>Why</h4> ' + d.Purpose);
+
+						if (d['Example URL']) {
+
+							var p = node.append('p')
+							.attr('class', 'examples')
+
+							p.append('h4').html("example");
+
+							p.append('a')
+								.attr("href", d['Example URL'])
+							.html(d["Example source / authors"] +": "+d["Example title"]);
+
+						}
 					}
 
-					if (d['Example URL']) {
-						var urls = d['Example URL'].split(',');
 
-						urls.forEach(function (c) {
-							return node.append('p')
-								.attr('class', 'description')
-								.append('a')
-							.html(c);
-						});
-					}
 				})
 			/*.on('mouseup', function (d) {
 				var node = d3.select(this),
