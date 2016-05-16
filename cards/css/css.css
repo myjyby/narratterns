@@ -50,6 +50,19 @@ body {
 	height: 100%;
 }
 
+.example-image img{
+	-webkit-filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(150%);
+	filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(150%);
+	opacity: .8;
+}
+
+.entry:hover .example-image img{
+	-webkit-filter: none;
+	filter: none;
+	opacity: 1;
+}
+
+
 .tagname {
 	background-color: steelblue;
 	text-transform: uppercase;
