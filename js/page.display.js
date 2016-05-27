@@ -1,7 +1,7 @@
 var __color = d3.scale.ordinal()
 		.range(['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd']);
 
-function uniquevalues(value, index, self) { 
+function uniquevalues(value, index, self) {
     return self.indexOf(value) === index;
 }
 
@@ -18,12 +18,16 @@ function display (el, type, data) {
 		var __pagecontent = __storytypes;
 	}*/
 
-	
-	__pagecontent = data;
+
+	__pagecontent = data.map(function(d){
+		if (!d.Tags){d.Tags = "untagged"};
+		return d;
+	});
 
 	var __categories = __pagecontent.map(function (d) {
 		//return d.Tags.replace(/\s/, '');
-		var tags = d.Tags.split(',');
+
+		var tags = d.Tags ? d.Tags.split(',') : [];
 		tags.map(function (d) {
 			return d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").replace(/ /g, '').toLowerCase();
 		});
@@ -35,8 +39,8 @@ function display (el, type, data) {
 	__categories = __categories.toString().split(',');
 	//__categories.forEach(function (d) { return d.replace(/\s/, ''); });
 	__categories = __categories.filter(uniquevalues);
+	console.log(__categories);
 
-	
 
 	var __filter__menu = d3.select('.navbar-right .dropdown .dropdown-menu').html(''),
 		__filters = __filter__menu.selectAll('li')
@@ -56,20 +60,20 @@ function display (el, type, data) {
 				d3.select(this).classed('active', true);
 				d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
 			}
-			
+
 		})
 	.append('a')
 	.append('span')
 		.style('background-color', function (d) { return __color(d); })
-		.html(function (d) { 
+		.html(function (d) {
 			var count = __pagecontent.filter(function (c) {
 				var tags = c.Tags.split(',');
 				return tags.indexOf(d) !== -1;
 				//return c.Tags == d;
 				//return c.category == d;
 			});
-			
-			return '<small>' + d + ' [' + count.length + ']' + '</small>'; 
+
+			return '<small>' + d + ' [' + count.length + ']' + '</small>';
 		});
 
 	var __container = d3.select('#content'),
@@ -113,11 +117,11 @@ function display (el, type, data) {
 		})
 		.each(function (d) {
 			var _body = d3.select(this);
-			
+
 			_body.append('div')
-				.attr('class', 'col-xs-12 col-sm-12 col-md-12')
-				.html(function (d) { 
-					return	'<p class="lead"><span>' + d.Name + '</span></p>';	
+				.attr('class', 'inner')
+				.html(function (d) {
+					return	'<p class="lead"><span>' + d.Name + '</span></p>';
 				})
 				.each(function () {
 					if (type == 'storytypes') {
@@ -138,25 +142,34 @@ function display (el, type, data) {
 								.attr('src', 'img/' + d.img)
 						}*/
 
-						node.append('p')
-							.attr('class', 'description')
-							.html('<strong>How:</strong> ' + d.Description);
+						node.append('div')
+							.attr('class', 'example-image')
+							.append("img")
+							.attr("src", d["Example Image URL"]);
 
 						node.append('p')
 							.attr('class', 'description')
-							.html('<strong>Why:</strong> ' + d.Purpose);
+							.html('<h4>How</h4> ' + d.Description);
+
+						node.append('p')
+							.attr('class', 'description')
+							.html('<h4>Why</h4> ' + d.Purpose);
+
+						if (d['Example URL']) {
+
+							var p = node.append('p')
+							.attr('class', 'examples')
+
+							p.append('h4').html("example");
+
+							p.append('a')
+								.attr("href", d['Example URL'])
+							.html(d["Example source / authors"] +": "+d["Example title"]);
+
+						}
 					}
 
-					if (d['Example URL']) {
-						var urls = d['Example URL'].split(',');
 
-						urls.forEach(function (c) { 
-							return node.append('p')
-								.attr('class', 'description')
-								.append('a')
-							.html(c);
-						});
-					}
 				})
 			/*.on('mouseup', function (d) {
 				var node = d3.select(this),
@@ -187,7 +200,7 @@ function display (el, type, data) {
 							.html('<strong>Why:</strong> ' + d.purpose);
 					}
 
-					d.examples.forEach(function (c) { 
+					d.examples.forEach(function (c) {
 						return node.append('p')
 							.attr('class', 'description')
 							.append('a')
@@ -224,7 +237,7 @@ function display (el, type, data) {
 							.html('<strong>Why:</strong> ' + d.purpose);
 					}
 
-					d.examples.forEach(function (c) { 
+					d.examples.forEach(function (c) {
 						return node.append('p')
 							.attr('class', 'description')
 							.append('a')
@@ -235,7 +248,7 @@ function display (el, type, data) {
 				}
 			})*/
 
-			_body.classed('text-only', true);				
+			_body.classed('text-only', true);
 
 		});
 }
