@@ -24,6 +24,12 @@ function display (el, type, data) {
 		return d;
 	});
 
+	// show only "done" cards
+	__pagecontent = __pagecontent.filter(function(d){
+		console.log(d);
+		return d["Complete?"] != null;
+	});
+
 	var __categories = __pagecontent.map(function (d) {
 		//return d.Tags.replace(/\s/, '');
 
@@ -42,7 +48,7 @@ function display (el, type, data) {
 	console.log(__categories);
 
 
-	var __filter__menu = d3.select('.navbar-right .dropdown .dropdown-menu').html(''),
+	var __filter__menu = d3.select('.navbar-right').html(''),
 		__filters = __filter__menu.selectAll('li')
 			.data(__categories);
 
@@ -64,7 +70,7 @@ function display (el, type, data) {
 		})
 	.append('a')
 	.append('span')
-		.style('background-color', function (d) { return __color(d); })
+		.style('border-color', function (d) { return __color(d); })
 		.html(function (d) {
 			var count = __pagecontent.filter(function (c) {
 				var tags = c.Tags.split(',');
