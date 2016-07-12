@@ -51,8 +51,8 @@ body {
 }
 
 .example-image img{
-	-webkit-filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(150%);
-	filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(150%);
+	-webkit-filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(170%);
+	filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(170%);
 	opacity: .8;
 }
 
@@ -83,14 +83,23 @@ body {
 	-o-border-top-right-radius: 5px;
 }
 
-.navbar-right .dropdown .dropdown-menu li a {
+.navbar-right li a {
 	text-transform: uppercase;
-	font-weight: lighter;
-	letter-spacing: 0.15em;
-	/*color: #FFF;*/
-	/*padding-top: 0.4em;*/
-	/*padding-bottom: 1em;*/
+	font-weight: 400;
+	letter-spacing: 0.1em;
 	cursor: pointer;
+	display: block;
+	padding: 0 .4em;
+	/*min-width: 9em;*/
+}
+
+.navbar-right li a span{
+	border: none;
+	display: block;
+	border-top: 5px solid;
+	padding: .75em .2em .2em;
+	/*text-align: center;*/
+	/*width: 100%;*/
 }
 
 .entry .body {
