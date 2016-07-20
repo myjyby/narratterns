@@ -26,7 +26,7 @@ function display (el, type, data) {
 
 	// show only "done" cards
 	__pagecontent = __pagecontent.filter(function(d){
-		console.log(d);
+		//console.log(d);
 		return d["Complete?"] != null;
 	});
 
@@ -56,15 +56,28 @@ function display (el, type, data) {
 		.append('li')
 		.attr('class', 'category active')
 		.on('click', function (d) {
-			var cats = d3.selectAll('.category.active')[0].length;
+			var cats = d3.selectAll('.category.active').size();
+			var domNode = d3.select(this);
 			if (cats == __categories.length) {
 				d3.selectAll('li.category').classed('active', false);
 				d3.selectAll('.entry').style('display', 'none');
-				d3.select(this).classed('active', true);
-				d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
+				
+				domNode.classed('active', true);
+				d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', null);
 			} else {
-				d3.select(this).classed('active', true);
-				d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
+				if (!domNode.classed('active')) {
+					domNode.classed('active', true);
+					//d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
+					d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', null);
+				} else {
+					if (cats > 1) {
+						domNode.classed('active', false);
+						d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', 'none');
+					} else {
+						d3.selectAll('li.category').classed('active', true);
+						d3.selectAll('.entry').style('display', null);
+					}
+				}
 			}
 
 		})
