@@ -1,7 +1,56 @@
 body {
 	background: #EAEAEA url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/contemporary_china.png);
 
-	font-family: "Avenir Next", sans-serif;
+	/*font-family: "Avenir Next", sans-serif;*/
+	font-family: "Source Sans Pro", sans-serif;
+	font-weight: 400;
+}
+
+h2 {
+	font-weight: 500;
+	letter-spacing: .04em;
+	font-size: 28px;
+	margin: 0 0 .5em 0;
+	float: left;
+}
+
+h3 {
+	font-weight: 400;
+	font-size: 15px;
+	color: #999;
+	margin: 0;
+	clear: left;
+	float: left;
+}
+
+.logo{
+	float: left;
+	padding: 1em;
+}
+
+.more-info{
+	width: 40em;
+	margin: 1em;
+	float: left;
+	display: none;
+}
+
+a.info{
+	background: #EEE;
+	border-radius: 100%;
+	padding: 0;
+	width: 80px;
+	height: 80px;
+	text-align: center;
+	padding-top: 28px;
+	color: #333;
+	text-decoration: none;
+	margin: .5em;
+	display: inline-block;
+}
+
+a.info:hover{
+	background: #FFF6A6;
 }
 
 #header {
@@ -51,9 +100,12 @@ body {
 }
 
 .example-image img{
+
+	/*
 	-webkit-filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(170%);
 	filter: sepia(80%) hue-rotate(90deg) grayscale(70%) brightness(80%) contrast(170%);
 	opacity: .8;
+	*/
 }
 
 .entry:hover .example-image img{
@@ -239,6 +291,8 @@ li.category a {
 	height: 15rem;
 	overflow: hidden;
 	background: #F5F5F5;
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
 	/*border-top: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;*/
 	margin: 0 0 2rem 0;

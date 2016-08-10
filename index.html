@@ -5,20 +5,23 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-	<title>NAPA Cards</title>
+	<title>NAPA Cards _ Narrative Patterns for Data Stories</title>
 
 	<script type="text/javascript" src="libs/d3.js"></script>
 	<script type="text/javascript" src="libs/jquery.js"></script>
 	<script type="text/javascript" src="libs/bootstrap.min.js"></script>
 	<script type="text/javascript" src="libs/gsheets/gsheets.min.js"></script>
-	<script type="text/javascript" src="data/atoms.js"></script>
-	<script type="text/javascript" src="data/resources.js"></script>
-	<script type="text/javascript" src="data/story.types.js"></script>
+	<!-- <script type="text/javascript" src="data/atoms.js"></script> -->
+	<!-- <script type="text/javascript" src="data/resources.js"></script>  -->
+	<!--<script type="text/javascript" src="data/story.types.js"></script> -->
 	<script type="text/javascript" src="js/page.display.js"></script>
 
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
+<!--
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700,300,400italic,800' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300,400italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300,400italic' rel='stylesheet' type='text/css'> -->
 
 	<link rel="stylesheet" type="text/css" href="libs/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/font.awesome.min.css">
@@ -40,12 +43,23 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">NAPA Cards</a>
+					<div class="logo">
+						<h2>NAPA Cards</h2>
+						<h3>Narrative Patterns for Data Stories</h3>
+					</div>
+					<a href="#" class="info" id="more-info-open">More info</a>
+					<a href="#" class="info" id="more-info-close" style="display: none;">Close</a>
 				</div>
+				<div class="more-info" id="">
 
+					<div class="content">
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+					</div>
+				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a onclick="display(this,'atom')">Patterns <span class="sr-only">(current)</span></a></li>
+					<ul class="nav navbar-nav" style="display: none;">
+						<li class="active"><a onclick="">Patterns <span class="sr-only">(current)</span></a></li>
 	<!-- 					<li class="active"><a onclick="display(this,'storytypes')">Story Types</a></li>
 						<li class="active"><a onclick="display(this,'resources')">Resources</a></li> -->
 						<!-- <li><a onclick="">About</a></li> -->
@@ -72,6 +86,7 @@
 </div>
 
 <div class="container" id="content">
+	<p>Loading…</p>
 </div>
 
 <script type="text/javascript">
@@ -79,17 +94,36 @@
 	function loadDataFromGDocs(){
 		console.log("loadDataFromGDocs");
 		gsheets.getWorksheet('1w2QqxzqJnoL0ke9J_1j7lENPZk_2qTwcmwYvtQ0V2iY', 'PatternCollection', function(err, res) {
-
-
 			var page = d3.select('.navbar-nav li.active a').node();
 			if(res && res.data) display(page, 'atom', res.data);
 
 	  });
-
-
+	}
+	function loadTsv(){
+		d3.csv("data/cards.csv", function(results){
+			console.table(results);
+			var page = d3.select('.navbar-nav li.active a').node();
+			display(page, 'atom', results);
+		});
 	}
 
-	loadDataFromGDocs();
+	d3.select("#more-info-open").on("click", function(){
+		d3.select(".more-info").style("display", "block");
+		d3.select(".navbar-right").style("display", "none");
+		d3.select("#more-info-close").style("display", "inline-block");
+		d3.select("#more-info-open").style("display", "none");
+		return false;
+	})
+
+	d3.select("#more-info-close").on("click", function(){
+		d3.select(".more-info").style("display", "none");
+		d3.select(".navbar-right").style("display", "block");
+		d3.select("#more-info-open").style("display", "inline-block");
+		d3.select("#more-info-close").style("display", "none");
+		return false;
+	})
+	// loadDataFromGDocs();
+	loadTsv();
 </script>
 
 </body>

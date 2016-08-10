@@ -27,7 +27,7 @@ function display (el, type, data) {
 	// show only "done" cards
 	__pagecontent = __pagecontent.filter(function(d){
 		//console.log(d);
-		return d["Complete?"] != null;
+		return d["Complete?"] == "x";
 	});
 
 	var __categories = __pagecontent.map(function (d) {
@@ -61,7 +61,7 @@ function display (el, type, data) {
 			if (cats == __categories.length) {
 				d3.selectAll('li.category').classed('active', false);
 				d3.selectAll('.entry').style('display', 'none');
-				
+
 				domNode.classed('active', true);
 				d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', null);
 			} else {
@@ -274,6 +274,6 @@ function display (el, type, data) {
 
 function clear (el) {
 	d3.selectAll('.navbar-nav li').classed('active', false);
-	d3.select(el.parentNode).classed('active', true);
+	if(el) d3.select(el.parentNode).classed('active', true);
 	return d3.selectAll('.entry').remove();
 }
