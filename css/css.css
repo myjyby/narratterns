@@ -25,7 +25,7 @@ h3 {
 
 .logo{
 	float: left;
-	padding: 1em;
+	padding: 1em 0;
 }
 
 .more-info{
@@ -54,7 +54,7 @@ a.info:hover{
 }
 
 #header {
-	background-color: rgba(255,255,255,.9);
+	background-color: rgba(255,255,255,.95);
 	/*padding-top: 1em;
 	padding-bottom: 1em;*/
 	position: fixed;
@@ -67,6 +67,10 @@ a.info:hover{
 
 #header .container {
 	padding: 0;
+}
+
+.container{
+	padding: 50px 0 0 0;
 }
 
 #header .navbar {
