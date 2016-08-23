@@ -56,30 +56,21 @@ function display (el, type, data) {
 		.append('li')
 		.attr('class', 'category active')
 		.on('click', function (d) {
-			var cats = d3.selectAll('.category.active').size();
 			var domNode = d3.select(this);
-			if (cats == __categories.length) {
-				d3.selectAll('li.category').classed('active', false);
-				d3.selectAll('.entry').style('display', 'none');
-
+			if (!domNode.classed('active')) {
 				domNode.classed('active', true);
-				d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', null);
 			} else {
-				if (!domNode.classed('active')) {
+				if (d3.selectAll('.category')[0].length == d3.selectAll('.category.active')[0].length) {
+					d3.selectAll('.category').classed("active", false);
 					domNode.classed('active', true);
-					//d3.selectAll('.entry.' + d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase()).style('display', null);
-					d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', null);
 				} else {
-					if (cats > 1) {
-						domNode.classed('active', false);
-						d3.selectAll('.entry').filter(function (c) { return c['Tags'] === d; }).style('display', 'none');
-					} else {
-						d3.selectAll('li.category').classed('active', true);
-						d3.selectAll('.entry').style('display', null);
+					domNode.classed('active', false);
+					if (0 == d3.selectAll('.category.active')[0].length){
+						d3.selectAll('.category').classed("active", true);
 					}
 				}
 			}
-
+			updateFilters();
 		})
 	.append('a')
 	.append('span')
@@ -115,10 +106,10 @@ function display (el, type, data) {
 				tags.map(function (d) {
 					return d.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
 				});
-				var tags = d.Tags.replace(/\,/, '');
+				// var tags = d.Tags.replace(/\,/, '');
 				//tags = tags.toString().replace(/ /g, ' ');
 				//var category = d.category.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~() ]/g,"").toLowerCase();
-				return 'entry col-xs-12 col-sm-6 col-md-4 ' + tags;
+				return 'entry col-xs-12 col-sm-6 col-md-4 ' + tags.join(" ");
 			} else {
 				return 'entry col-xs-12 col-sm-6 col-md-4';
 			}
@@ -270,6 +261,19 @@ function display (el, type, data) {
 			_body.classed('text-only', true);
 
 		});
+}
+
+function updateFilters(){
+	var activeFilters = d3.selectAll(".category.active")[0].map(function(d){return d.__data__});
+
+	d3.selectAll(".entry").classed("hidden", function(d){
+		for(var t of d.Tags.split(",")){
+			console.log(t);
+			if(activeFilters.indexOf(t)>-1) return false;
+		}
+		return true;
+	})
+
 }
 
 function clear (el) {

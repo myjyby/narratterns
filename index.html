@@ -45,18 +45,12 @@
 					</button>
 					<div class="logo">
 						<h2>NAPA Cards</h2>
-						<h3>Narrative Patterns for Data Stories</h3>
+						<h3>Narrative Patterns for Data-Driven Storytelling</h3>
 					</div>
-					<a href="#" class="info" id="more-info-open">More info</a>
-					<a href="#" class="info" id="more-info-close" style="display: none;">Close</a>
+					<a href="#info" class="info" id="more-info-open">What is<br>this?</a>
+					<!-- <a href="#" class="info" id="more-info-close" style="display: none;">Close</a> -->
 				</div>
-				<div class="more-info" id="">
 
-					<div class="content">
-						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-					</div>
-				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav" style="display: none;">
 						<li class="active"><a onclick="">Patterns <span class="sr-only">(current)</span></a></li>
@@ -89,8 +83,37 @@
 	<!-- <p>Loading…</p> -->
 </div>
 
+<a id="info" ></a>
 <div class="footer container">
-	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+	<div class="row">
+	<h2 class="col-md-12">About this project</h2>
+	</div>
+	<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-6">
+	<p>
+		This collection of cards came out of a workshop on Data-Driven Storytelling in Dagstuhl, 2016. We investigated how data-driven stories work, how they are different from other types of narratives and also other types of data visualization.
+	</p>
+	<p>
+		Each card represents a specific narrative technique, pattern or "trick" you can apply to effect flow, empathy, argumentation… in a data story. We tried to find a representative example for each technique, but of course, there will be many different instantiations of the same undelying principle. These patterns are also not mutually exclusive — rather, they can often be combined to great effect.
+	</p>
+	<p>
+		Our motivation was to provide practitioners with inspiration and structure while coming up with new data stories. On the other hand, from a research point of view, the cards can help illuminate bigger patterns and recurring themes in storytelling, thus help to map the possibility space of data-driven narratives.
+	</p>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6">
+	<p>
+		There is a publication on the way which will detail the academic perspective on this project. Find a preprint version here.
+	</p>
+	<p>
+		We very much welcome your input and experience reports. In case you have any questions, or have successfully used the cards, or have suggestions and ideas, feel free to drop us a line at mail@napa-patterns.com.
+	</p>
+
+	<p>
+		Contributors: Ulrike Koeppen, Barbara Tversky, Jo Wood, Jeremy Boy, Steven Drucker, Lyn Bartram, Paolo Ciuccarelli, Moritz Stefaner, Yuri Engelhardt
+		Thanks to Schloß Dagstuhl for hosting the workshop, and thanks to Sheelagh Carpendale, … for bringing us all together!.
+	</p>
+	</div>
+	</div>
 	<!-- <p>Loading…</p> -->
 </div>
 
@@ -112,21 +135,21 @@
 		});
 	}
 
-	d3.select("#more-info-open").on("click", function(){
-		d3.select(".more-info").style("display", "block");
-		d3.select(".navbar-right").style("display", "none");
-		d3.select("#more-info-close").style("display", "inline-block");
-		d3.select("#more-info-open").style("display", "none");
-		return false;
-	})
+	// d3.select("#more-info-open").on("click", function(){
+	// 	d3.select(".more-info").style("display", "block");
+	// 	d3.select(".navbar-right").style("display", "none");
+	// 	d3.select("#more-info-close").style("display", "inline-block");
+	// 	d3.select("#more-info-open").style("display", "none");
+	// 	return false;
+	// })
 
-	d3.select("#more-info-close").on("click", function(){
-		d3.select(".more-info").style("display", "none");
-		d3.select(".navbar-right").style("display", "block");
-		d3.select("#more-info-open").style("display", "inline-block");
-		d3.select("#more-info-close").style("display", "none");
-		return false;
-	})
+	// d3.select("#more-info-close").on("click", function(){
+	// 	d3.select(".more-info").style("display", "none");
+	// 	d3.select(".navbar-right").style("display", "block");
+	// 	d3.select("#more-info-open").style("display", "inline-block");
+	// 	d3.select("#more-info-close").style("display", "none");
+	// 	return false;
+	// })
 	// loadDataFromGDocs();
 	loadTsv();
 </script>
